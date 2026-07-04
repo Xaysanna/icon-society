@@ -389,6 +389,38 @@ footer .row a:hover{color:var(--or)}
 .gold-sec .gc-price span{font-size:.4em;color:var(--gris);letter-spacing:.1em}
 .gold-sec .gc-note{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#3a3d42;margin-top:24px}
 
+/* ---------- formulaire hero (capture au-dessus du pli) ---------- */
+.hero .form-wrap{max-width:440px;width:100%;margin:0 auto}
+.hero .form{padding-left:20px}
+.hero-note{margin-top:16px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gris)}
+.form input{font-size:16px} /* ≥16px = pas de zoom forcé iOS */
+
+/* ---------- honeypot anti-bot (invisible pour les humains) ---------- */
+.hp{position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px;height:1px;opacity:0;pointer-events:none}
+
+/* ---------- partage post-inscription ---------- */
+.share-box{margin-top:28px;opacity:0;transform:translateY(12px);transition:all .8s var(--ease);pointer-events:none;text-align:center}
+.share-box.on{opacity:1;transform:none;pointer-events:auto}
+.share-box .sh-num{font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--or);margin-bottom:14px}
+.share-box .sh-txt{font-size:12px;color:var(--gris);letter-spacing:.05em;margin-bottom:18px;line-height:1.9}
+.share-box .sh-txt b{color:var(--blanc);font-weight:500}
+.share-box .sh-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.share-box .sh-btn{border:1px solid rgba(237,232,223,.25);background:rgba(10,13,18,.55);color:var(--blanc);font-family:'Archivo',sans-serif;font-weight:700;font-size:10px;letter-spacing:.25em;text-transform:uppercase;padding:12px 18px;transition:border-color .3s,color .3s}
+.share-box .sh-btn:hover{border-color:var(--or);color:var(--or)}
+
+/* ---------- countdown cliquable ---------- */
+.count-wrap{cursor:pointer}
+
+/* ---------- exit intent (desktop) ---------- */
+#exit{position:fixed;inset:0;z-index:9700;background:rgba(3,4,5,.92);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
+#exit.on{opacity:1;visibility:visible}
+#exit .box{max-width:520px;width:92vw;text-align:center;padding:54px 40px;border:1px solid rgba(193,154,107,.4);position:relative;background:var(--noir)}
+#exit .e-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:11px;letter-spacing:.5em;color:var(--or);text-transform:uppercase}
+#exit h5{font-family:'Mr Dafoe',cursive;font-size:44px;color:var(--blanc);font-weight:400;margin:20px 0}
+#exit p{font-size:12px;line-height:2;color:var(--gris);letter-spacing:.06em;margin-bottom:26px}
+#exit .close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--gris);font-size:20px;transition:color .3s}
+#exit .close:hover{color:var(--or)}
+
 /* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(50px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
@@ -491,7 +523,28 @@ footer .row a:hover{color:var(--or)}
     <div class="count-note">✦ Le compte à rebours tourne. Seuls les inscrits voient la date.</div>
 
     <div class="hero-cta">
-      <a class="btn" href="#waitlist"><span class="st">✦</span> Sois prévenu 24h avant <span class="st">✦</span></a>
+      <div class="form-wrap" id="heroWrap">
+        <form class="form" data-join>
+          <input type="text" class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="email" placeholder="Ton e-mail" required autocomplete="email" maxlength="254" spellcheck="false">
+          <button type="submit">Entrer ✦</button>
+        </form>
+        <div class="form-success">
+          <svg width="24" height="24" viewBox="0 0 24 24"><path class="star4" d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z"/></svg>
+          <span class="txt">Tu es dans l'archive</span>
+        </div>
+      </div>
+      <div class="hero-note">✦ Prévenu 24h avant tout le monde — zéro spam</div>
+      <div class="share-box" data-share>
+        <div class="sh-num">Entrée <b class="sh-mynum">#—</b> ✦ enregistrée</div>
+        <div class="sh-txt"><b>100 pièces, des centaines sur la liste.</b><br>Fais entrer tes proches — la date ne sera envoyée qu'aux inscrits.</div>
+        <div class="sh-row">
+          <button class="sh-btn" data-sh="native">Partager ✦</button>
+          <button class="sh-btn" data-sh="wa">WhatsApp</button>
+          <button class="sh-btn" data-sh="x">X</button>
+          <button class="sh-btn" data-sh="copy">Copier le lien</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="scroll-cue"></div>
@@ -619,13 +672,24 @@ footer .row a:hover{color:var(--or)}
   <h3 class="reveal">La date tombe sans prévenir.<span class="script">Toi, tu la connaîtras.</span></h3>
   <p class="sub reveal">La date du drop ne sera <b>jamais postée publiquement</b>. Les inscrits reçoivent la date exacte et un <b>accès 24h avant tout le monde</b>. 100 pièces, des centaines sur la liste — fais le calcul.</p>
   <div class="form-wrap reveal" id="formWrap">
-    <form class="form" id="waitlistForm">
-      <input type="email" id="emailInput" placeholder="Ton e-mail" required autocomplete="email">
+    <form class="form" data-join>
+      <input type="text" class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="email" placeholder="Ton e-mail" required autocomplete="email" maxlength="254" spellcheck="false">
       <button type="submit">Entrer ✦</button>
     </form>
     <div class="form-success">
       <svg width="24" height="24" viewBox="0 0 24 24"><path class="star4" d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z"/></svg>
       <span class="txt">Tu es dans l'archive</span>
+    </div>
+  </div>
+  <div class="share-box" data-share>
+    <div class="sh-num">Entrée <b class="sh-mynum">#—</b> ✦ enregistrée</div>
+    <div class="sh-txt"><b>100 pièces, des centaines sur la liste.</b><br>Fais entrer tes proches — la date ne sera envoyée qu'aux inscrits.</div>
+    <div class="sh-row">
+      <button class="sh-btn" data-sh="native">Partager ✦</button>
+      <button class="sh-btn" data-sh="wa">WhatsApp</button>
+      <button class="sh-btn" data-sh="x">X</button>
+      <button class="sh-btn" data-sh="copy">Copier le lien</button>
     </div>
   </div>
   <p class="privacy">Aucun spam. Uniquement la date. Désinscription en un clic.</p>
@@ -650,6 +714,27 @@ footer .row a:hover{color:var(--or)}
   <a href="#waitlist">Être prévenu ✦</a>
 </div>
 
+<!-- EXIT INTENT (desktop) -->
+<div id="exit">
+  <div class="box">
+    <button class="close" id="exitClose">✕</button>
+    <div class="e-num">✦ Avant de partir</div>
+    <h5>La date ne sera jamais publique.</h5>
+    <p>100 pièces. Jamais réédité. Les inscrits reçoivent la date exacte<br>et entrent <b style="color:var(--blanc)">24h avant tout le monde</b>.</p>
+    <div class="form-wrap" id="exitWrap">
+      <form class="form" data-join>
+        <input type="text" class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="email" placeholder="Ton e-mail" required autocomplete="email" maxlength="254" spellcheck="false">
+        <button type="submit">Entrer ✦</button>
+      </form>
+      <div class="form-success">
+        <svg width="24" height="24" viewBox="0 0 24 24"><path class="star4" d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z"/></svg>
+        <span class="txt">Tu es dans l'archive</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ---------- anti-clickjacking (frame-ancestors indisponible via meta sur GitHub Pages) ---------- */
 if(window.top!==window.self){try{window.top.location=window.location}catch(e){document.body.style.display='none'}}
@@ -663,26 +748,39 @@ const DROP_DATE = new Date('2026-09-01T19:00:00+02:00');
 // Tant que c'est vide, les emails sont juste stockés dans le navigateur (rien envoyé).
 const WAITLIST_ENDPOINT = '';
 const WAITLIST_EMAIL_FIELD = 'EMAIL'; // nom du champ email côté Brevo (par défaut "EMAIL")
+const SITE_URL = 'https://xaysanna.github.io/icon-archives/';
+const PAGE_READY_AT = Date.now(); // time-trap anti-bot : un humain ne soumet pas en <3s
+
+/* ---------- visiteur déjà entré : on saute la porte (rétention) ---------- */
+const RETURNING = localStorage.getItem('ia_entered')==='1';
 
 /* ---------- preloader → porte (avec compteur %) ---------- */
 (function(){
+  const loader=document.getElementById('loader');
+  if(RETURNING){loader.classList.add('done');return}
   const pctEl=document.getElementById('loadPct'),barEl=document.getElementById('loadBar');
   let p=0;
   const iv=setInterval(()=>{
-    p=Math.min(100,p+Math.random()*14);
+    p=Math.min(100,p+Math.random()*24);
     pctEl.textContent=Math.floor(p)+'%';barEl.style.width=p+'%';
-    if(p>=100){clearInterval(iv);setTimeout(()=>document.getElementById('loader').classList.add('done'),450)}
-  },150);
+    if(p>=100){clearInterval(iv);setTimeout(()=>loader.classList.add('done'),350)}
+  },90);
 })();
-document.getElementById('enterBtn').addEventListener('click',()=>{
-  SND.init();SND.on=true;sndBtn.classList.add('on');SND.gate();
-  setTimeout(()=>SND.startAmbient(),900);
+function openGate(withSound){
+  if(withSound){SND.init();SND.on=true;sndBtn.classList.add('on');SND.gate();setTimeout(()=>SND.startAmbient(),900)}
   const g=document.getElementById('gate');
   g.classList.add('open');
   document.getElementById('hero').classList.add('in');
   document.getElementById('heroImg').classList.add('show');
-  setTimeout(()=>g.classList.add('gone'),1700);
-});
+  setTimeout(()=>g.classList.add('gone'),withSound?1700:100);
+  try{localStorage.setItem('ia_entered','1')}catch(_){}
+}
+document.getElementById('enterBtn').addEventListener('click',()=>openGate(true));
+if(RETURNING){
+  const g=document.getElementById('gate');
+  g.style.transition='none';g.querySelectorAll('.panel').forEach(p=>p.style.transition='none');
+  openGate(false);
+}
 
 /* ---------- moteur son (WebAudio, zéro fichier) ---------- */
 const SND={ctx:null,on:false,
@@ -1027,32 +1125,89 @@ window.addEventListener('scroll',()=>{
   let t=0;(function float(){if(idle){t+=.015;card.style.transform=`rotateX(${Math.sin(t)*3}deg) rotateY(${Math.cos(t*.8)*5}deg)`}requestAnimationFrame(float)})();
 })();
 
-/* ---------- waitlist ---------- */
+/* ---------- waitlist (handler partagé : hero + section + exit intent) ---------- */
 const lc=document.getElementById('liveCount');
 let base=317+Math.floor((Date.now()-new Date('2026-06-11').getTime())/864e5)*7; // grossit un peu chaque jour
 lc.textContent=base;
-document.getElementById('waitlistForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const email=document.getElementById('emailInput').value.trim();
-  if(!email)return;
-  try{
-    const list=JSON.parse(localStorage.getItem('ia_waitlist')||'[]');
-    list.push({email,at:new Date().toISOString()});
-    localStorage.setItem('ia_waitlist',JSON.stringify(list));
-    localStorage.setItem('ia_joined','1');
-  }catch(_){}
-  // envoi vers l'endpoint réel (Brevo) si configuré
-  if(WAITLIST_ENDPOINT){
-    const fd=new FormData();fd.append(WAITLIST_EMAIL_FIELD,email);
-    fetch(WAITLIST_ENDPOINT,{method:'POST',body:fd,mode:'no-cors'}).catch(()=>{});
-  }
-  lc.textContent=++base;
-  const fr=document.getElementById('formWrap').getBoundingClientRect();
-  starBurst(fr.left+fr.width/2,fr.top+fr.height/2);
-  SND.success();
-  document.getElementById('formWrap').classList.add('ok');
+
+function markJoined(myNum){
+  document.querySelectorAll('.form-wrap').forEach(w=>w.classList.add('ok'));
+  document.querySelectorAll('.share-box').forEach(b=>{
+    b.querySelector('.sh-mynum').textContent='#'+myNum;
+    b.classList.add('on');
+  });
   bar.classList.remove('show');
+}
+
+document.querySelectorAll('form[data-join]').forEach(form=>{
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const wrap=form.parentElement;
+    const email=form.querySelector('input[type=email]').value.trim();
+    const honeypot=form.querySelector('.hp').value;
+    if(!email||email.length>254)return;
+    // anti-bot : honeypot rempli ou soumission <3s après chargement → faux succès, rien n'est envoyé
+    const isBot=honeypot!==''||(Date.now()-PAGE_READY_AT<3000);
+    if(!isBot){
+      try{
+        const list=JSON.parse(localStorage.getItem('ia_waitlist')||'[]');
+        list.push({email,at:new Date().toISOString()});
+        localStorage.setItem('ia_waitlist',JSON.stringify(list));
+        localStorage.setItem('ia_joined','1');
+      }catch(_){}
+      // envoi vers l'endpoint réel (Brevo) si configuré
+      if(WAITLIST_ENDPOINT){
+        const fd=new FormData();fd.append(WAITLIST_EMAIL_FIELD,email);
+        fetch(WAITLIST_ENDPOINT,{method:'POST',body:fd,mode:'no-cors'}).catch(()=>{});
+      }
+    }
+    lc.textContent=++base;
+    const fr=wrap.getBoundingClientRect();
+    starBurst(fr.left+fr.width/2,fr.top+fr.height/2);
+    SND.success();
+    markJoined(base);
+    if(wrap.id==='exitWrap')setTimeout(()=>document.getElementById('exit').classList.remove('on'),1800);
+  });
 });
+
+// déjà inscrit lors d'une visite précédente → état succès direct
+if(localStorage.getItem('ia_joined')==='1')markJoined(base);
+
+/* ---------- partage post-inscription (referral loop) ---------- */
+const SHARE_MSG="ICON ✦ 100 pièces, jamais réédité. La date est verrouillée — réservée aux inscrits. Entre dans l'archive : ";
+document.querySelectorAll('[data-sh]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const kind=btn.dataset.sh;
+    if(kind==='native'&&navigator.share){navigator.share({title:'Icon✦ — Drop 001',text:SHARE_MSG,url:SITE_URL}).catch(()=>{});return}
+    if(kind==='native'||kind==='copy'){
+      navigator.clipboard.writeText(SHARE_MSG+SITE_URL).then(()=>{btn.textContent='Copié ✦';setTimeout(()=>btn.textContent=kind==='copy'?'Copier le lien':'Partager ✦',1800)}).catch(()=>{});
+      return;
+    }
+    if(kind==='wa')open('https://wa.me/?text='+encodeURIComponent(SHARE_MSG+SITE_URL),'_blank','noopener');
+    if(kind==='x')open('https://twitter.com/intent/tweet?text='+encodeURIComponent(SHARE_MSG)+'&url='+encodeURIComponent(SITE_URL),'_blank','noopener');
+  });
+});
+
+/* ---------- countdown flouté cliquable → waitlist ---------- */
+document.querySelector('.count-wrap').addEventListener('click',()=>{
+  SND.click();
+  document.getElementById('waitlist').scrollIntoView({behavior:'smooth'});
+});
+
+/* ---------- exit intent (desktop, 1x/session, jamais avant 6s, jamais si inscrit) ---------- */
+(function(){
+  if(!matchMedia('(pointer:fine)').matches)return;
+  document.addEventListener('mouseout',e=>{
+    if(e.clientY>8||e.relatedTarget)return;
+    if(Date.now()-PAGE_READY_AT<6000)return;
+    if(localStorage.getItem('ia_joined')==='1')return;
+    if(sessionStorage.getItem('ia_exit'))return;
+    sessionStorage.setItem('ia_exit','1');
+    document.getElementById('exit').classList.add('on');
+  });
+  document.getElementById('exitClose').addEventListener('click',()=>document.getElementById('exit').classList.remove('on'));
+  document.getElementById('exit').addEventListener('click',e=>{if(e.target.id==='exit')document.getElementById('exit').classList.remove('on')});
+})();
 </script>
 </body>
 </html>
