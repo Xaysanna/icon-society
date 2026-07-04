@@ -196,6 +196,23 @@ body.hovering .cursor-star{transform:translate(-50%,-50%) scale(1.7) rotate(90de
 #loader .pct{position:absolute;bottom:8vh;left:50%;transform:translateX(-50%);font-family:'Archivo',sans-serif;font-weight:800;font-size:12px;letter-spacing:.5em;color:var(--gris)}
 #loader .bar{position:absolute;bottom:6.2vh;left:50%;transform:translateX(-50%);width:180px;height:1px;background:rgba(237,232,223,.12)}
 #loader .bar i{display:block;height:100%;width:0;background:var(--or);transition:width .2s linear}
+#loader .lmsg{position:absolute;bottom:3.4vh;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#3a3d42;white-space:nowrap}
+
+/* ---------- fiche d'archive (dossier) ---------- */
+#fiche{position:fixed;inset:0;z-index:9700;background:rgba(3,4,5,.92);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
+#fiche.on{opacity:1;visibility:visible}
+#fiche .fbox{max-width:460px;width:92vw;padding:44px 38px 54px;border:1px solid rgba(193,154,107,.4);position:relative;background:var(--noir-2)}
+#fiche .close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--gris);font-size:20px;transition:color .3s}
+#fiche .close:hover{color:var(--or)}
+#fiche .f-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;gap:14px}
+#fiche .f-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:12px;letter-spacing:.4em;color:var(--blanc);text-transform:uppercase}
+#fiche .f-stamp{font-family:'Archivo',sans-serif;font-weight:800;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--or);border:2px solid var(--or);padding:7px 12px;transform:rotate(-7deg);white-space:nowrap}
+#fiche .f-stamp.classified{color:var(--gris);border-color:var(--gris)}
+#fiche .f-row{display:flex;justify-content:space-between;gap:18px;padding:13px 0;border-bottom:1px solid rgba(237,232,223,.1);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+#fiche .f-row .k{color:var(--gris);white-space:nowrap}
+#fiche .f-row .v{color:var(--blanc);text-align:right}
+#fiche .redact{background:#23262c;color:transparent;border-radius:2px;user-select:none;letter-spacing:0}
+#fiche .f-seal{margin-top:30px;text-align:center;opacity:.85}
 
 /* ---------- particules dorées (canvas) ---------- */
 #dust{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.8}
@@ -455,6 +472,17 @@ footer .row a:hover{color:var(--or)}
   </div>
   <div class="pct" id="loadPct">0%</div>
   <div class="bar"><i id="loadBar"></i></div>
+  <div class="lmsg" id="loadMsg">ouverture de l'archive…</div>
+</div>
+
+<!-- FICHE D'ARCHIVE (dossier par slot) -->
+<div id="fiche">
+  <div class="fbox">
+    <button class="close" id="ficheClose">✕</button>
+    <div class="f-head"><span class="f-num" id="fNum">DOSSIER 001</span><span class="f-stamp" id="fStamp">OUVERT</span></div>
+    <div class="f-body" id="fBody"></div>
+    <div class="f-seal"><svg viewBox="0 0 24 24" width="26" height="26"><path class="star4" d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z"/></svg></div>
+  </div>
 </div>
 
 <!-- POUSSIÈRE DORÉE -->
@@ -762,16 +790,24 @@ const PAGE_READY_AT = Date.now(); // time-trap anti-bot : un humain ne soumet pa
 /* ---------- visiteur déjà entré : on saute la porte (rétention) ---------- */
 const RETURNING = localStorage.getItem('ia_entered')==='1';
 
+/* ---------- l'archive se souvient : compteur de visites ---------- */
+try{if(!sessionStorage.getItem('ia_sess')){sessionStorage.setItem('ia_sess','1');localStorage.setItem('ia_visits',String((+localStorage.getItem('ia_visits')||0)+1))}}catch(_){}
+const VISITS=+localStorage.getItem('ia_visits')||1;
+
 /* ---------- preloader → porte (avec compteur %) ---------- */
 (function(){
   const loader=document.getElementById('loader');
   if(RETURNING){loader.classList.add('done');return}
   const pctEl=document.getElementById('loadPct'),barEl=document.getElementById('loadBar');
+  const LMSGS=["vérification des sceaux…","dépoussiérage des archives…","comptage des 100 pièces…","la porte s'entrouvre…"];
+  const msgEl=document.getElementById('loadMsg');
+  let li=0;
+  const liv=setInterval(()=>{msgEl.textContent=LMSGS[li++%LMSGS.length]},420);
   let p=0;
   const iv=setInterval(()=>{
     p=Math.min(100,p+Math.random()*24);
     pctEl.textContent=Math.floor(p)+'%';barEl.style.width=p+'%';
-    if(p>=100){clearInterval(iv);setTimeout(()=>loader.classList.add('done'),350)}
+    if(p>=100){clearInterval(iv);clearInterval(liv);msgEl.textContent="bienvenue dans l'archive ✦";setTimeout(()=>loader.classList.add('done'),350)}
   },90);
 })();
 function openGate(withSound){
@@ -911,11 +947,55 @@ setInterval(()=>{pc.textContent=new Date().toLocaleTimeString('fr-FR',{timeZone:
   },{threshold:.5}).observe(giant);
 })();
 
-/* ---------- slots verrouillés : refus ---------- */
+/* ---------- fiches d'archive (dossiers par slot) ---------- */
+const fiche=document.getElementById('fiche');
+function openFiche(num,stamp,rows){
+  document.getElementById('fNum').textContent='Dossier '+num;
+  const st=document.getElementById('fStamp');
+  st.textContent=stamp;st.classList.toggle('classified',stamp!=='OUVERT');
+  const body=document.getElementById('fBody');body.innerHTML='';
+  rows.forEach(([k,v])=>{
+    const r=document.createElement('div');r.className='f-row';
+    const ke=document.createElement('span');ke.className='k';ke.textContent=k;
+    const ve=document.createElement('span');ve.className='v';
+    if(v==='REDACT'){ve.innerHTML='<span class="redact">'+'█'.repeat(6+Math.floor(Math.random()*8))+'</span>'}
+    else ve.textContent=v;
+    r.appendChild(ke);r.appendChild(ve);body.appendChild(r);
+  });
+  fiche.classList.add('on');
+}
+document.getElementById('ficheClose').addEventListener('click',()=>fiche.classList.remove('on'));
+fiche.addEventListener('click',e=>{if(e.target.id==='fiche')fiche.classList.remove('on')});
+
+document.querySelector('.slot.open-slot').addEventListener('click',()=>{
+  openFiche('001','OUVERT',[
+    ['Pièce','Longsleeve Heavyweight'],
+    ['Matière','100% coton — 280 GSM'],
+    ['Édition','100 exemplaires, numérotés'],
+    ['Réédition','Jamais'],
+    ['Statut','✦ Ouvert — Drop 001'],
+    ['Note','Signée comme une œuvre.']
+  ]);
+});
+
+/* ---------- slots verrouillés : refus, puis dossier classifié si on insiste ---------- */
 document.querySelectorAll('.slot.locked').forEach(sl=>{
+  let tries=0,tryTimer=null;
   sl.addEventListener('click',()=>{
     sl.classList.remove('deny');void sl.offsetWidth;sl.classList.add('deny');
     SND.deny();
+    clearTimeout(tryTimer);tryTimer=setTimeout(()=>tries=0,3000);
+    if(++tries>=2){
+      tries=0;
+      const num=sl.querySelector('.sn').textContent.trim();
+      setTimeout(()=>openFiche(num,'CLASSIFIÉ',[
+        ['Pièce','REDACT'],
+        ['Matière','REDACT'],
+        ['Édition','REDACT'],
+        ['Ouverture',num==='002'?'Après le Drop 001':'REDACT'],
+        ['Note','Ce dossier s’ouvrira quand son heure viendra.']
+      ]),480);
+    }
   });
 });
 
@@ -1028,7 +1108,11 @@ new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();
   const out=document.getElementById('termOut'),form=document.getElementById('termForm'),input=document.getElementById('termIn');
   const nightParis=(+new Date().toLocaleString('en-US',{timeZone:'Europe/Paris',hour:'numeric',hour12:false}))<6;
   const CMDS={
-    help:()=>"commandes : <span class='gold'>date</span> · <span class='gold'>pieces</span> · <span class='gold'>drop</span> · <span class='gold'>manifeste</span> · <span class='gold'>entrer</span> · <span class='gold'>000</span> · <span class='gold'>clear</span>",
+    help:()=>"commandes : <span class='gold'>date</span> · <span class='gold'>pieces</span> · <span class='gold'>drop</span> · <span class='gold'>moi</span> · <span class='gold'>manifeste</span> · <span class='gold'>entrer</span> · <span class='gold'>000</span> · <span class='gold'>clear</span>",
+    moi:()=>{
+      const inscrit=localStorage.getItem('ia_joined')==='1';
+      return "visite n°"+VISITS+" · "+(inscrit?"<span class='gold'>membre de l'archive — entrée #"+base+"</span>":"pas encore inscrit. tape <span class='gold'>entrer</span>.");
+    },
     date:()=>"verrouillée. elle ne sera jamais publique — <span class='gold'>inscris-toi pour la recevoir.</span>",
     pieces:()=>"100. jamais réédité. "+base+" personnes attendent déjà.",
     drop:()=>"drop 001 — longsleeve heavyweight 280gsm. le seul emplacement ouvert.",
@@ -1054,6 +1138,7 @@ new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();
     if(resp)print(resp,'resp');
   });
   if(nightParis)print("<span class='gold'>✦ il est tard. l'archive veille avec toi.</span>",'resp');
+  if(VISITS>=3)print("<span class='gold'>✦ visite n°"+VISITS+". l'archive se souvient de toi.</span>",'resp');
 })();
 
 /* ---------- countdown ---------- */
