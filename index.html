@@ -2,6 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Icon✦ — Drop 001</title>
 <meta name="description" content="Icon. 100 pièces. La date est verrouillée. Sois prévenu avant tout le monde.">
@@ -12,10 +14,14 @@
 <link rel="icon" type="image/png" href="assets/logo-icon.png">
 <link rel="preload" as="image" href="assets/logo-icon.png">
 <link rel="preload" as="image" href="assets/hero.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Mrs+Saint+Delafield&family=Mr+Dafoe&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-var-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/mr-dafoe-latin.woff2" crossorigin>
 <style>
+/* ---------- polices self-hostées (ex-Google Fonts, RGPD-safe) ---------- */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url('assets/fonts/archivo-var-latin.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('assets/fonts/inter-var-latin.woff2') format('woff2')}
+@font-face{font-family:'Mr Dafoe';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/mr-dafoe-latin.woff2') format('woff2')}
+@font-face{font-family:'Mrs Saint Delafield';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/mrs-saint-delafield-latin.woff2') format('woff2')}
 :root{
   --noir:#050607;
   --noir-2:#0A0D12;
@@ -645,6 +651,9 @@ footer .row a:hover{color:var(--or)}
 </div>
 
 <script>
+/* ---------- anti-clickjacking (frame-ancestors indisponible via meta sur GitHub Pages) ---------- */
+if(window.top!==window.self){try{window.top.location=window.location}catch(e){document.body.style.display='none'}}
+
 /* ====== CONFIG DROP ====== */
 // Date cible du drop (modifiable). Les visiteurs voient le countdown mais la "vraie" date n'est envoyée qu'aux inscrits.
 const DROP_DATE = new Date('2026-09-01T19:00:00+02:00');
