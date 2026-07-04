@@ -20,6 +20,8 @@
 /* ---------- polices self-hostées (ex-Google Fonts, RGPD-safe) ---------- */
 @font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url('assets/fonts/archivo-var-latin.woff2') format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('assets/fonts/inter-var-latin.woff2') format('woff2')}
+@font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 500;font-display:swap;src:url('assets/fonts/eb-garamond-latin.woff2') format('woff2')}
+@font-face{font-family:'EB Garamond';font-style:italic;font-weight:400;font-display:swap;src:url('assets/fonts/eb-garamond-italic-latin.woff2') format('woff2')}
 @font-face{font-family:'Mr Dafoe';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/mr-dafoe-latin.woff2') format('woff2')}
 @font-face{font-family:'Mrs Saint Delafield';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/mrs-saint-delafield-latin.woff2') format('woff2')}
 :root{
@@ -435,6 +437,17 @@ footer .row a:hover{color:var(--or)}
 /* ---------- countdown cliquable ---------- */
 .count-wrap{cursor:pointer}
 
+/* ---------- pass éditorial "fait main" : serif d'archive, scans, annotations ---------- */
+.product .note,.waitlist .sub,.gold-sec .gc-pitch,#egg .box p,#exit p{font-family:'EB Garamond',serif;font-size:15.5px;letter-spacing:.01em;text-transform:none}
+.editorial .cell.txt .q{font-family:'EB Garamond',serif;font-style:italic;font-weight:400;text-transform:none;font-size:clamp(20px,2.2vw,30px);line-height:1.55;letter-spacing:0}
+.editorial .cell.txt .q em{font-style:italic;color:var(--or)}
+.editorial .cell img,.product .visual img,.slot.open-slot img{filter:sepia(.13) contrast(1.05) brightness(.95)}
+.scan-stamp{position:absolute;top:16px;right:16px;font-family:'Consolas','Courier New',monospace;font-size:9px;letter-spacing:.18em;color:rgba(237,232,223,.55);background:rgba(5,6,7,.45);padding:6px 9px;transform:rotate(.6deg);pointer-events:none;text-transform:uppercase}
+.annot{font-family:'Mr Dafoe',cursive;color:var(--or);font-size:clamp(19px,2vw,24px);transform:rotate(-4deg);opacity:.85;pointer-events:none;line-height:1.2}
+.annot.abs{position:absolute}
+.tilt.in{transform:translateY(0) rotate(-.4deg)!important}
+.tilt-r.in{transform:translateY(0) rotate(.35deg)!important}
+
 /* ---------- exit intent (desktop) ---------- */
 #exit{position:fixed;inset:0;z-index:9700;background:rgba(3,4,5,.92);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
 #exit.on{opacity:1;visibility:visible}
@@ -607,12 +620,12 @@ footer .row a:hover{color:var(--or)}
 
 <!-- BANDE ÉDITORIALE -->
 <section class="editorial">
-  <div class="cell tall reveal"><img src="assets/lifestyle.jpg" alt="" loading="lazy"><span class="cap">Une autre catégorie</span></div>
-  <div class="cell txt reveal">
-    <div class="q">Une présence qui attire. Un style maîtrisé. Une allure qui se remarque <em>sans effort</em>.</div>
+  <div class="cell tall reveal"><img src="assets/lifestyle.jpg" alt="" loading="lazy"><span class="cap">Une autre catégorie</span><span class="scan-stamp">Scan 04 · Paris</span><span class="annot abs" style="bottom:54px;right:22px">04:12, personne dehors.</span></div>
+  <div class="cell txt reveal tilt">
+    <div class="q">« Je voulais une pièce que tu remarques <em>sans comprendre pourquoi</em>. Le reste, c'est du bruit. »</div>
     <div class="sub-q">— Le fondateur</div>
   </div>
-  <div class="cell wide reveal"><img src="assets/texture.jpg" alt="" loading="lazy"><span class="cap">280 GSM — Broderie ton sur ton</span></div>
+  <div class="cell wide reveal"><img src="assets/texture.jpg" alt="" loading="lazy"><span class="cap">280 GSM — Broderie ton sur ton</span><span class="scan-stamp">Macro · Proto 03</span></div>
 </section>
 
 <!-- PRODUCT -->
@@ -621,6 +634,8 @@ footer .row a:hover{color:var(--or)}
     <img src="assets/product.jpg" alt="Icon — Pièce 001" onerror="this.style.display='none'">
     <div class="veil"><span class="script">Pièce 001</span></div>
     <span class="tag">Aperçu — Prototype 1</span>
+    <span class="scan-stamp" style="top:auto;bottom:16px">Archive scan · 06.2026</span>
+    <span class="annot abs" style="bottom:44px;left:20px">celle-là, je la garde.</span>
   </div>
   <div class="info reveal">
     <span class="num">— Pièce N°001 / Édition de 100, numérotée</span>
@@ -633,7 +648,7 @@ footer .row a:hover{color:var(--or)}
       <div class="row"><span class="k">Dos</span><span class="v">Signature Icon — imprimée</span></div>
       <div class="row"><span class="k">Réédition</span><span class="v">Jamais</span></div>
     </div>
-    <p class="note">Coutures renforcées, double surpiqûre, finition premium. Chaque pièce est signée et numérotée — <b>quand les 100 sont parties, elles ne reviennent pas.</b></p>
+    <p class="note">Coutures renforcées, double surpiqûre. Le col a demandé trois prototypes avant d'être validé. Chaque pièce est signée et numérotée. <b>Quand les 100 sont parties, elles ne reviennent pas.</b></p>
   </div>
 </section>
 
@@ -657,6 +672,7 @@ footer .row a:hover{color:var(--or)}
     <div class="slot locked"><span class="sn">005</span><div class="inner-lk"><div class="lock-ico"></div>Verrouillé<br>—</div><span class="deny-msg">✦ qui sait</span></div>
   </div>
   <p class="vnote reveal">Chaque drop ouvre un emplacement. <b>Aucun ne rouvre jamais.</b></p>
+  <p class="annot reveal" style="text-align:center;margin-top:18px">la 002 existe déjà. quelque part.</p>
 </section>
 
 <!-- INDICE QUOTIDIEN + TERMINAL INTERACTIF -->
@@ -1161,7 +1177,7 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 /* ---------- manifesto mot par mot ---------- */
-const manifestoText=`Ceux qui portent cette signature ne suivent pas. Ils imposent. Chaque pièce est signée comme une œuvre — parce que c'en est une. {{script}}`;
+const manifestoText=`Ceux qui portent cette signature n'attendent la validation de personne. Chaque pièce est signée, numérotée, puis le dossier se ferme. Cent fois. Jamais plus. {{script}}`;
 const m=document.getElementById('manifesto');
 manifestoText.split(' ').forEach(w=>{
   if(w==='{{script}}'){const s=document.createElement('span');s.className='script';s.textContent=' Presence over noise.';m.appendChild(s);return}
