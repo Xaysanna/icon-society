@@ -419,6 +419,8 @@ footer .row a:hover{color:var(--or)}
 .hero .form-wrap{max-width:440px;width:100%;margin:0 auto}
 .hero .form{padding-left:20px}
 .hero-note{margin-top:16px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gris)}
+.hero-cta .form-wrap.ok + .hero-note{display:none} /* inscrit → la promesse n'a plus lieu d'être */
+.hero-cta .share-box{margin-top:20px}
 .form input{font-size:16px} /* ≥16px = pas de zoom forcé iOS */
 
 /* ---------- honeypot anti-bot (invisible pour les humains) ---------- */
@@ -595,11 +597,8 @@ footer .row a:hover{color:var(--or)}
       <div class="hero-note">✦ Prévenu 24h avant tout le monde — zéro spam</div>
       <div class="share-box" data-share>
         <div class="sh-num">Entrée <b class="sh-mynum">#—</b> ✦ enregistrée</div>
-        <div class="sh-txt"><b>100 pièces, des centaines sur la liste.</b><br>Fais entrer tes proches — la date ne sera envoyée qu'aux inscrits.</div>
         <div class="sh-row">
           <button class="sh-btn" data-sh="native">Partager ✦</button>
-          <button class="sh-btn" data-sh="wa">WhatsApp</button>
-          <button class="sh-btn" data-sh="x">X</button>
           <button class="sh-btn" data-sh="copy">Copier le lien</button>
         </div>
       </div>
