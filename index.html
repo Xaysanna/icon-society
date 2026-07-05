@@ -128,7 +128,6 @@ body.hovering .cursor-star{transform:translate(-50%,-50%) scale(1.7) rotate(90de
 /* mobile : hero allégé + centrage */
 @media(max-width:860px){
   .count-note{display:none}
-  .scroll-cue{display:none}
   .hero{padding-left:5vw;padding-right:5vw}
   .hero-content{width:100%;align-items:center}
   .hero .sig-wrap{display:block;width:100%;text-align:center}
@@ -284,9 +283,6 @@ nav .cta-mini{border:1px solid rgba(237,232,223,.4);padding:10px 18px}
 .btn .st{color:var(--or);transition:color .45s}
 .btn:hover .st{color:var(--noir)}
 
-.scroll-cue{position:absolute;bottom:4.5vh;left:50%;transform:translateX(-50%);width:1px;height:52px;overflow:hidden;z-index:2}
-.scroll-cue::after{content:"";position:absolute;left:0;top:-100%;width:1px;height:100%;background:var(--blanc);animation:cue 2.2s var(--ease) infinite}
-@keyframes cue{0%{top:-100%}50%{top:0}100%{top:100%}}
 
 /* ---------- marquee ---------- */
 .marquee{border-top:1px solid rgba(237,232,223,.08);border-bottom:1px solid rgba(237,232,223,.08);padding:20px 0;overflow:hidden;white-space:nowrap;background:var(--noir)}
@@ -602,7 +598,6 @@ footer .row a:hover{color:var(--or)}
       </div>
     </div>
   </div>
-  <div class="scroll-cue"></div>
 </header>
 
 <!-- MARQUEE -->
