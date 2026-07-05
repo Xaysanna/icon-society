@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
 <meta name="description" content="Icon. 100 pièces. La date est verrouillée. Sois prévenu avant tout le monde.">
 <meta property="og:title" content="Icon✦ — Drop 001">
@@ -69,7 +69,7 @@ html,body{background:var(--noir);color:var(--blanc);font-family:'Inter',sans-ser
 #sprog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--or),var(--or-2));z-index:2000;box-shadow:0 0 12px rgba(193,154,107,.5)}
 
 /* ---------- toggle son ---------- */
-#sndBtn{position:fixed;bottom:24px;left:24px;z-index:1600;background:rgba(10,13,18,.7);backdrop-filter:blur(10px);border:1px solid rgba(237,232,223,.15);color:var(--gris);font-size:9px;letter-spacing:.35em;text-transform:uppercase;padding:12px 18px;display:flex;align-items:center;gap:10px;transition:color .3s,border-color .3s}
+#sndBtn{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:24px;z-index:1600;background:rgba(10,13,18,.7);backdrop-filter:blur(10px);border:1px solid rgba(237,232,223,.15);color:var(--gris);font-size:9px;letter-spacing:.35em;text-transform:uppercase;padding:12px 18px;display:flex;align-items:center;gap:10px;transition:color .3s,border-color .3s}
 #sndBtn:hover{color:var(--or);border-color:rgba(193,154,107,.4)}
 #sndBtn .eq{display:flex;gap:2px;align-items:flex-end;height:10px}
 #sndBtn .eq i{width:2px;background:currentColor;height:3px}
@@ -125,28 +125,7 @@ body.hovering .cursor-star{transform:translate(-50%,-50%) scale(1.7) rotate(90de
   #gate .enter-btn:hover{letter-spacing:.32em}
   #gate .gnote{letter-spacing:.3em}
 }
-/* mobile : hero allégé + centrage */
-@media(max-width:860px){
-  .count-note{display:none}
-  .hero{padding-left:5vw;padding-right:5vw}
-  .hero-content{width:100%;align-items:center}
-  .hero .sig-wrap{display:block;width:100%;text-align:center}
-  .hero .sig-inner img{width:min(72vw,300px);margin:0 auto;display:block;transform:none!important}
-  .hero .tag{margin-top:3vh;font-size:10px;letter-spacing:.3em;text-align:center}
-  .count{margin-top:4vh;gap:10px;justify-content:center;width:100%}
-  .count .cell{min-width:0;flex:0 1 auto}
-  .count .num{font-size:clamp(30px,9vw,40px)}
-  .count .lbl{font-size:7px;letter-spacing:.25em}
-  .count .sep{font-size:clamp(24px,7vw,34px)}
-  .count-wrap{width:100%}
-  .count-locked{font-size:7.5px;padding:10px 12px;letter-spacing:.25em;width:max-content;max-width:86vw;white-space:normal;text-align:center;line-height:1.8}
-  .hero-cta{margin-top:4vh}
-  .btn{padding:16px 22px;letter-spacing:.28em;font-size:11px}
-  footer .reveal img{width:min(70vw,300px)!important;margin:0 auto}
-  .manifesto{padding:16vh 6vw}
-  .indice .term{font-size:11px;padding:20px 18px}
-  nav{padding:20px 5vw}
-}
+
 
 /* ---------- salle des archives (slots verrouillés) ---------- */
 .vault{padding:16vh 4vw 18vh;max-width:1500px;margin:0 auto}
@@ -369,7 +348,7 @@ footer .row a{color:var(--gris);text-decoration:none;transition:color .3s}
 footer .row a:hover{color:var(--or)}
 
 /* ---------- sticky bottom bar ---------- */
-.sticky-bar{position:fixed;left:50%;bottom:22px;transform:translate(-50%,150%);z-index:1500;display:flex;align-items:center;gap:20px;background:rgba(10,13,18,.78);backdrop-filter:blur(16px);border:1px solid rgba(237,232,223,.14);padding:14px 14px 14px 26px;transition:transform .8s var(--ease);max-width:92vw}
+.sticky-bar{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,150%);z-index:1500;display:flex;align-items:center;gap:20px;background:rgba(10,13,18,.78);backdrop-filter:blur(16px);border:1px solid rgba(237,232,223,.14);padding:14px 14px 14px 26px;transition:transform .8s var(--ease);max-width:92vw}
 .sticky-bar.show{transform:translate(-50%,0)}
 .sticky-bar .t{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--blanc);white-space:nowrap}
 .sticky-bar .t b{color:var(--or);font-weight:500;font-variant-numeric:tabular-nums}
@@ -477,6 +456,43 @@ footer .row a:hover{color:var(--or)}
   .product{grid-template-columns:1fr;gap:7vh}
   nav .right .hide-m{display:none}
   .sticky-bar .t{display:none}
+}
+
+/* mobile : hero allégé + centrage */
+@media(max-width:860px){
+  .count-note{display:none}
+  .hero{padding-left:5vw;padding-right:5vw}
+  .hero-content{width:100%;align-items:center}
+  .hero .sig-wrap{display:block;width:100%;text-align:center}
+  .hero .sig-inner img{width:min(72vw,300px);margin:0 auto;display:block;transform:none!important}
+  .hero .tag{margin-top:3vh;font-size:10px;letter-spacing:.3em;text-align:center}
+  .count{margin-top:4vh;gap:10px;justify-content:center;width:100%}
+  .count .cell{min-width:0;flex:0 1 auto}
+  .count .num{font-size:clamp(30px,9vw,40px)}
+  .count .lbl{font-size:7px;letter-spacing:.25em}
+  .count .sep{font-size:clamp(24px,7vw,34px)}
+  .count-wrap{width:100%}
+  .count-locked{font-size:7.5px;padding:10px 12px;letter-spacing:.25em;width:max-content;max-width:86vw;white-space:normal;text-align:center;line-height:1.8}
+  .hero-cta{margin-top:4vh}
+  .btn{padding:16px 22px;letter-spacing:.28em;font-size:11px}
+  footer .reveal img{width:min(70vw,300px)!important;margin:0 auto}
+  .manifesto{padding:16vh 6vw}
+  .indice .term{font-size:12px;padding:20px 16px}
+  #termIn{font-size:16px} /* <16px = zoom forcé iOS au focus */
+  nav{padding:20px 5vw}
+  .plaque{font-size:9px;letter-spacing:.26em;padding:8px 12px}
+  .cartel{padding:18px 16px;max-width:100%}
+  .cartel .c-title{font-size:16px}
+  #fiche .fbox{padding:32px 20px 42px}
+  #fiche .f-row{font-size:10px;gap:12px}
+  #egg .box{padding:44px 24px;width:92vw}
+  .sh-btn{padding:14px 16px}
+  .share-box .sh-row{gap:8px}
+  .hero .form-wrap{max-width:100%}
+  .annot{font-size:18px}
+  footer .row{flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .editorial .cell.txt{padding:24px 20px}
+  .waitlist{padding-left:6vw;padding-right:6vw}
 }
 </style>
 </head>
