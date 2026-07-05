@@ -1,4 +1,4 @@
 Contact: https://instagram.com/icon.archives
 Expires: 2027-07-01T00:00:00.000Z
 Preferred-Languages: fr, en
-Canonical: https://xaysanna.github.io/icon-archives/.well-known/security.txt
+Canonical: https://xaysanna.github.io/icon-society/.well-known/security.txt
