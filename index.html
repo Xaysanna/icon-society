@@ -872,7 +872,7 @@ const SND={ctx:null,on:false,
     let bgm=document.getElementById('bgm');
     if(!bgm){bgm=document.createElement('audio');bgm.id='bgm';bgm.src='assets/track.mp3';bgm.loop=true;document.body.appendChild(bgm)}
     bgm.volume=0;bgm.play().catch(()=>{});
-    let v=0;const fade=setInterval(()=>{v=Math.min(.55,v+.02);bgm.volume=v;if(v>=.55)clearInterval(fade)},120);
+    let v=0;const fade=setInterval(()=>{v=Math.min(.35,v+.015);bgm.volume=v;if(v>=.35)clearInterval(fade)},120);
     this.amb={track:bgm,fade};
   },
   _startSynth(){
