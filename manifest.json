@@ -1,0 +1,14 @@
+{
+  "name": "ICON SOCIETY",
+  "short_name": "ICON",
+  "description": "100 pièces. Jamais réédité. La date est verrouillée.",
+  "start_url": "/icon-society/",
+  "scope": "/icon-society/",
+  "display": "standalone",
+  "background_color": "#050607",
+  "theme_color": "#050607",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

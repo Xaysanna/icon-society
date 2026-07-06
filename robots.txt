@@ -1,3 +1,4 @@
 # ICON SOCIETY — l'archive n'a rien à cacher. Seulement une date.
 User-agent: *
 Allow: /
+Sitemap: https://xaysanna.github.io/icon-society/sitemap.xml
