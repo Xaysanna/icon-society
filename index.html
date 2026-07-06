@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-KHu4BuEByLHSJn/o+anWFCslt3VNlSpQA33n/zmfkew='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
@@ -448,6 +448,12 @@ footer .row a:hover{color:var(--or)}
 .reveal{opacity:0;transform:translateY(50px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
 
+/* ---------- l'archive ne s'imprime pas ---------- */
+@media print{
+  body>*{display:none!important}
+  body::after{content:"L'archive ne s'imprime pas. ✦  Elle se visite : xaysanna.github.io/icon-society";display:block;font:italic 24px 'EB Garamond',serif;color:#000;text-align:center;margin-top:42vh}
+}
+
 /* ---------- titres mot par mot ---------- */
 .sw{display:inline-block;opacity:0;transform:translateY(.55em);transition:opacity .7s var(--ease),transform .8s var(--ease)}
 .split-in .sw{opacity:1;transform:none}
@@ -568,7 +574,7 @@ footer .row a:hover{color:var(--or)}
 <!-- HERO -->
 <header class="hero" id="hero">
   <div class="hero-img" id="heroImg">
-    <img src="assets/hero.jpg" alt="" onerror="this.parentElement.style.display='none'">
+    <img src="assets/hero.jpg" alt="">
   </div>
   <div class="hero-content">
     <div class="sig-wrap">
@@ -649,7 +655,7 @@ footer .row a:hover{color:var(--or)}
 <!-- PRODUCT -->
 <section class="product">
   <div class="visual reveal" id="productVisual">
-    <img src="assets/product.jpg" alt="Icon — Pièce 001" onerror="this.style.display='none'">
+    <img src="assets/product.jpg" alt="Icon — Pièce 001">
     <div class="veil"><span class="script">Pièce 001</span></div>
     <span class="scan-stamp" style="top:auto;bottom:16px">Archive scan · 06.2026</span>
     <span class="annot abs" style="bottom:44px;left:20px">celle-là, je la garde.</span>
@@ -801,6 +807,12 @@ footer .row a:hover{color:var(--or)}
 <script>
 /* ---------- anti-clickjacking (frame-ancestors indisponible via meta sur GitHub Pages) ---------- */
 if(window.top!==window.self){try{window.top.location=window.location}catch(e){document.body.style.display='none'}}
+
+/* ---------- fallbacks images (ex-onerror inline, retirés pour la CSP hashée) ---------- */
+(function(){
+  const h=document.querySelector('#heroImg img');if(h)h.addEventListener('error',()=>{h.parentElement.style.display='none'});
+  const p=document.querySelector('#productVisual img');if(p)p.addEventListener('error',()=>{p.style.display='none'});
+})();
 
 /* ====== CONFIG DROP ====== */
 // Date cible du drop (modifiable). Les visiteurs voient le countdown mais la "vraie" date n'est envoyée qu'aux inscrits.
@@ -1376,6 +1388,14 @@ document.querySelector('.count-wrap').addEventListener('click',()=>{
   document.getElementById('exitClose').addEventListener('click',()=>document.getElementById('exit').classList.remove('on'));
   document.getElementById('exit').addEventListener('click',e=>{if(e.target.id==='exit')document.getElementById('exit').classList.remove('on')});
 })();
+
+/* ---------- pour les curieux qui ouvrent la console ---------- */
+try{
+  console.log("%c✦","color:#C19A6B;font-size:60px");
+  console.log("%cTu regardes sous le tapis. L'archive aime les curieux.","color:#EDE8DF;font-size:14px;font-style:italic");
+  console.log("%cTape entrer() pour signer le registre. Ou tape 000 dans le terminal du sous-sol.","color:#8A8C90;font-size:12px");
+  window.entrer=()=>{document.getElementById('waitlist').scrollIntoView({behavior:'smooth'});return "✦ le registre t'attend en bas."};
+}catch(_){}
 </script>
 </body>
 </html>
