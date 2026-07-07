@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vxkzvCfQGybC/Qs77Y4JzRM9NX5xF5itxMb/6jXPeYI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-NR9ZK/uDqo+YDdW4u/dby9Ew9EVNabHj9vG/3aOFcDk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
@@ -1351,8 +1351,9 @@ document.querySelectorAll('form[data-join]').forEach(form=>{
     const email=form.querySelector('input[type=email]').value.trim();
     const honeypot=form.querySelector('.hp').value;
     if(!email||email.length>254)return;
-    // anti-bot : honeypot rempli ou soumission <3s après chargement → faux succès, rien n'est envoyé
-    const isBot=honeypot!==''||(Date.now()-PAGE_READY_AT<3000);
+    // anti-bot : honeypot rempli ou soumission trop rapide → faux succès, rien n'est envoyé
+    // (visiteur connu : porte sautée, le form est visible tout de suite → fenêtre réduite à 1.2s)
+    const isBot=honeypot!==''||(Date.now()-PAGE_READY_AT<(RETURNING?1200:3000));
     if(!isBot){
       try{
         const list=JSON.parse(localStorage.getItem('ia_waitlist')||'[]');
