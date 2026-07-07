@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-KHu4BuEByLHSJn/o+anWFCslt3VNlSpQA33n/zmfkew='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vxkzvCfQGybC/Qs77Y4JzRM9NX5xF5itxMb/6jXPeYI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
@@ -458,6 +458,12 @@ footer .row a:hover{color:var(--or)}
 .reveal{opacity:0;transform:translateY(50px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
 
+/* ---------- visiteur connu : rendu instantané du hero (LCP) ---------- */
+body.instant .hero.in .sig-inner img{animation:none;clip-path:none}
+body.instant .hero-img img{transition:none}
+body.instant .hero-img.show img{opacity:.5;transform:scale(1.02)}
+body.instant .hero .tag,body.instant .count,body.instant .hero-cta{transition:none;opacity:1;transform:none}
+
 /* ---------- accessibilité : mouvement réduit ---------- */
 @media (prefers-reduced-motion: reduce){
   .grain,#dust{display:none}
@@ -878,6 +884,7 @@ function openGate(withSound){
 }
 document.getElementById('enterBtn').addEventListener('click',()=>openGate(true));
 if(RETURNING){
+  document.body.classList.add('instant'); // déjà vu le spectacle → tout s'affiche direct (LCP)
   const g=document.getElementById('gate');
   g.style.transition='none';g.querySelectorAll('.panel').forEach(p=>p.style.transition='none');
   openGate(false);
