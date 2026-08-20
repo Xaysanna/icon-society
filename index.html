@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-NR9ZK/uDqo+YDdW4u/dby9Ew9EVNabHj9vG/3aOFcDk='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-9aIooolQ2P1JZ7WOHUhHi23Vvr+L6aIqaKtCv/pv5dc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
@@ -433,6 +433,13 @@ footer .row a:hover{color:var(--or)}
 .tilt.in{transform:translateY(0) rotate(-.4deg)!important}
 .tilt-r.in{transform:translateY(0) rotate(.35deg)!important}
 
+/* ---------- japonais : mincho système, aucune webfont (CSP + RGPD) ---------- */
+.jp{font-family:'Hiragino Mincho ProN','Yu Mincho','YuMincho','MS PMincho','Noto Serif JP',serif;font-weight:400}
+.marquee .jp{letter-spacing:.14em}
+footer .seal{margin-top:6vh;display:flex;flex-direction:column;align-items:center;gap:10px}
+footer .seal .glyph{font-size:clamp(26px,4.2vw,42px);letter-spacing:.22em;text-indent:.22em;color:var(--or);opacity:.9;line-height:1}
+footer .seal .read{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--gris);letter-spacing:.04em}
+
 /* ---------- muséographie : plaques de salle, cartel, vitrine ---------- */
 .plaque{display:inline-block;width:max-content;max-width:90vw;margin-left:auto;margin-right:auto;font-family:'Archivo',sans-serif;font-weight:700;font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--or);border:1px solid rgba(193,154,107,.35);padding:10px 18px 10px 22px;background:rgba(10,13,18,.4)}
 .cartel{margin-top:4.5vh;border:1px solid rgba(237,232,223,.14);background:rgba(10,13,18,.5);padding:22px 24px;max-width:420px}
@@ -653,10 +660,12 @@ body.instant .hero .tag,body.instant .count,body.instant .hero-cta{transition:no
     <span>100 pièces — jamais réédité</span><span class="gold">✦</span>
     <span>Drop 001</span><span class="gold">✦</span>
     <span>Heavyweight 280 GSM</span><span class="gold">✦</span>
+    <span class="jp">愛への恋</span><span class="gold">✦</span>
     <span>Presence over noise</span><span class="gold">✦</span>
     <span>100 pièces — jamais réédité</span><span class="gold">✦</span>
     <span>Drop 001</span><span class="gold">✦</span>
     <span>Heavyweight 280 GSM</span><span class="gold">✦</span>
+    <span class="jp">愛への恋</span><span class="gold">✦</span>
   </div>
 </div>
 
@@ -793,6 +802,10 @@ body.instant .hero .tag,body.instant .count,body.instant .hero-cta{transition:no
 <footer>
   <div class="reveal" style="display:flex;justify-content:center">
     <img class="logo-img" src="assets/logo-icon.webp" alt="Icon" style="width:clamp(300px,45vw,640px);opacity:.95">
+  </div>
+  <div class="seal reveal">
+    <span class="glyph jp">愛への恋</span>
+    <span class="read">ai e no koi — amoureux de l'amour</span>
   </div>
   <div class="row">
     <span>© 2026 ICON SOCIETY® — PARIS <span class="clock" id="parisClock">--:--:--</span></span>
@@ -1197,6 +1210,11 @@ new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();
     "000":()=>{document.getElementById('egg').classList.add('on');return"…accès accordé."},
     sudo:()=>"non. ici, c'est l'archive qui décide.",
     icon:()=>"✦",
+    ai:()=>"<span class='jp gold'>愛への恋</span> — ai e no koi. amoureux de l'amour : 愛 c'est aimer, 恋 c'est en être fou. le second vise le premier.",
+    koi:()=>CMDS.ai(),
+    "愛":()=>CMDS.ai(),
+    "恋":()=>CMDS.ai(),
+    "愛への恋":()=>CMDS.ai(),
     clear:()=>{out.innerHTML='';return null},
     nuit:()=>nightParis?"tu veilles aussi. les vrais reconnaissent les vrais. ✦":"reviens quand paris dort.",
   };
