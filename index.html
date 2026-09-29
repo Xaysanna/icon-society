@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-l2W9rcMLSOJMsVjOCGef6pjPYfGi9K2VGpfstK4Dh+c='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-h+63pkJNFSNeZvN+KUE+hq1H/dlA87CQYZiXzyK+o4I='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
@@ -656,12 +656,12 @@ body.instant .hero .tag,body.instant .count,body.instant .hero-cta{transition:no
 <!-- MARQUEE -->
 <div class="marquee">
   <div class="track">
-    <span>Presence over noise</span><span class="gold">✦</span>
+    <span>Born to be seen</span><span class="gold">✦</span>
     <span>100 pièces — jamais réédité</span><span class="gold">✦</span>
     <span>Drop 001</span><span class="gold">✦</span>
     <span>Heavyweight 280 GSM</span><span class="gold">✦</span>
     <span class="jp">愛への愛</span><span class="gold">✦</span>
-    <span>Presence over noise</span><span class="gold">✦</span>
+    <span>Born to be seen</span><span class="gold">✦</span>
     <span>100 pièces — jamais réédité</span><span class="gold">✦</span>
     <span>Drop 001</span><span class="gold">✦</span>
     <span>Heavyweight 280 GSM</span><span class="gold">✦</span>
@@ -1178,7 +1178,7 @@ const INDICES=[
   "la signature est cousue là où personne ne regarde.",
   "ceux qui savent, savent déjà. les autres liront ceci.",
   "le drop tombera un jour où tu ne t'y attends pas.",
-  "présence > bruit. c'est tout le manifeste.",
+  "né pour être vu. c'est tout le manifeste.",
   "la pièce 002 existe déjà. elle attend.",
 ];
 const dayIdx=Math.floor(Date.now()/864e5)%INDICES.length;
@@ -1205,7 +1205,7 @@ new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();
     date:()=>"verrouillée. elle ne sera jamais publique — <span class='gold'>inscris-toi pour la recevoir.</span>",
     pieces:()=>"100. jamais réédité. "+base+" personnes attendent déjà.",
     drop:()=>"drop 001 — longsleeve heavyweight 280gsm. le seul emplacement ouvert.",
-    manifeste:()=>{document.querySelector('.manifesto').scrollIntoView({behavior:'smooth'});return"presence over noise. remonte le lire."},
+    manifeste:()=>{document.querySelector('.manifesto').scrollIntoView({behavior:'smooth'});return"born to be seen. remonte le lire."},
     entrer:()=>{document.getElementById('waitlist').scrollIntoView({behavior:'smooth'});return"la porte est en bas. laisse ton email."},
     "000":()=>{document.getElementById('egg').classList.add('on');return"…accès accordé."},
     sudo:()=>"non. ici, c'est l'archive qui décide.",
@@ -1257,7 +1257,7 @@ window.addEventListener('scroll',()=>{
 const manifestoText=`Ceux qui portent cette signature n'attendent la validation de personne. Chaque pièce est signée, numérotée, puis le dossier se ferme. Cent fois. Jamais plus. {{script}}`;
 const m=document.getElementById('manifesto');
 manifestoText.split(' ').forEach(w=>{
-  if(w==='{{script}}'){const s=document.createElement('span');s.className='script';s.textContent=' Presence over noise.';m.appendChild(s);return}
+  if(w==='{{script}}'){const s=document.createElement('span');s.className='script';s.textContent=' Born to be seen.';m.appendChild(s);return}
   const s=document.createElement('span');s.className='dim';s.textContent=w+' ';m.appendChild(s);
 });
 const words=[...m.querySelectorAll('.dim')];
