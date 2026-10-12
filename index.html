@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-h+63pkJNFSNeZvN+KUE+hq1H/dlA87CQYZiXzyK+o4I='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-bDSi4T7bxHZxMw8iQwF1dlc7yn3H1BpTPkQCRSa68+s='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://sibforms.com https://*.sibforms.com https://*.brevo.com; object-src 'none'; base-uri 'self'; form-action 'self' https://sibforms.com https://*.sibforms.com">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Icon✦ — Drop 001</title>
@@ -1224,9 +1224,12 @@ new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();
     const raw=input.value.trim().toLowerCase().slice(0,40);input.value='';
     if(!raw)return;
     const safe=raw.replace(/[<>&]/g,'');
-    print("<span class='ln'>archive@icon:~$</span> "+safe);
+    const el=document.createElement('div');el.className='tline';
+    const ln=document.createElement('span');ln.className='ln';ln.textContent='archive@icon:~$ ';
+    el.appendChild(ln);el.appendChild(document.createTextNode(safe));
+    out.appendChild(el);while(out.children.length>9)out.removeChild(out.firstChild);
     SND.click();
-    const fn=CMDS[safe];
+    const fn=Object.prototype.hasOwnProperty.call(CMDS,safe)?CMDS[safe]:null;
     const resp=fn?fn():"commande inconnue. tape <span class='gold'>help</span>.";
     if(resp)print(resp,'resp');
   });
